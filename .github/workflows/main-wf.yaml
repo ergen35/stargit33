@@ -3,20 +3,19 @@ name: "main workflow"
 on:
   push:
     branches:
-      - "main"
       - "master"
 jobs:
   build:
     runs-on: ubuntu-22.04
     steps:
       - name: view dir
-        run: cd app && ls
+        run: ls
       - name: restore packages     
         run: dotnet restore
 
       - name: build app
         working-directory: .
-        run: cd app && dotnet build
+        run: dotnet build
       
       # - name: publish app
       #   run: mkdir output && dotnet publish -c Release --output=./output --no-self-contained
