@@ -10,14 +10,14 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: view dir
-        working-directory: ./app
+        working-directory: ""
         run: ls
       - name: restore packages
-        working-directory: ./app
+        working-directory: ""
         run: dotnet restore
 
       - name: build app
-        working-directory: ./app
+        working-directory: ""
         run: dotnet build
       
       # - name: publish app
