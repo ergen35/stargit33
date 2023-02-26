@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: restore packages
-        working-directory: ./src
+        working-directory: src
         run: dotnet restore ./MinimalAPIS.csproj
         
       # - name: build app
