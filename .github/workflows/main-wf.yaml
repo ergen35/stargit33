@@ -10,15 +10,13 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: view dir
-        working-directory: .
-        run: ls
-      - name: restore packages
-        working-directory: .       
+        run: cd app && ls
+      - name: restore packages     
         run: dotnet restore
 
       - name: build app
         working-directory: .
-        run: dotnet build
+        run: cd app && dotnet build
       
       # - name: publish app
       #   run: mkdir output && dotnet publish -c Release --output=./output --no-self-contained
