@@ -14,7 +14,7 @@ jobs:
       - name: restore packages
         working-directory: ./src
         run: dotnet restore ./MinimalAPIS.csproj
-
+        
       # - name: build app
       #   working-directory: .
       #   run: dotnet build
