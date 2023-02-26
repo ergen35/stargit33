@@ -8,9 +8,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-22.04
+    defaults:
+      run:
+        working-directory: ./app
     steps:
-      - name: search project
-        working-directory: ./
+      - name: view dir
         run: ls
       # - name: restore packages
       #   run: dotnet restore
