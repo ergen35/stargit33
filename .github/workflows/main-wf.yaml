@@ -9,14 +9,17 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     steps:
-      - name: restore packages
-        run: dotnet restore
+      - name: search project
+        working-directory: ./
+        run: ls
+      # - name: restore packages
+      #   run: dotnet restore
 
-      - name: build app
-        run: dotnet build
+      # - name: build app
+      #   run: dotnet build
       
-      - name: publish app
-        run: mkdir output && dotnet publish -c Release --output=./output --no-self-contained
+      # - name: publish app
+      #   run: mkdir output && dotnet publish -c Release --output=./output --no-self-contained
       
-      - name: show output directory content
-        run: cd output && ls
+      # - name: show output directory content
+      #   run: cd output && ls
