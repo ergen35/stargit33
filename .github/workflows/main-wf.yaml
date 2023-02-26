@@ -1,0 +1,15 @@
+name: "main workflow"
+
+on:
+  push:
+    branches:
+      - "main"
+      - "master"
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: restore packages
+        run: echo Hello, world!
+  
+  
