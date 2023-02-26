@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-22.04
     defaults:
       run:
-        working-directory: ./app
+        working-directory: app
     steps:
       - name: view dir
         run: ls
