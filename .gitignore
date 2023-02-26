@@ -477,3 +477,5 @@ $RECYCLE.BIN/
 *.lnk
 .vscode/launch.json
 .vscode/tasks.json
+src/.vscode/launch.json
+src/.vscode/tasks.json
