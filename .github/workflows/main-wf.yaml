@@ -10,12 +10,13 @@ jobs:
     steps:
       - name: view dir
         run: ls
-      - name: restore packages     
-        run: dotnet restore
-
-      - name: build app
+      - name: restore packages
         working-directory: .
-        run: dotnet build
+        run: dotnet restore ./MinimalAPIS.csproj
+
+      # - name: build app
+      #   working-directory: .
+      #   run: dotnet build
       
       # - name: publish app
       #   run: mkdir output && dotnet publish -c Release --output=./output --no-self-contained
