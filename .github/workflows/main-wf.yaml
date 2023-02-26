@@ -8,17 +8,17 @@ on:
 jobs:
   build:
     runs-on: ubuntu-22.04
-    defaults:
-      run:
-        working-directory: ./
     steps:
       - name: view dir
+        working-directory: app
         run: ls
-      # - name: restore packages
-      #   run: dotnet restore
+      - name: restore packages
+        working-directory: app
+        run: dotnet restore
 
-      # - name: build app
-      #   run: dotnet build
+      - name: build app
+        working-directory: app
+        run: dotnet build
       
       # - name: publish app
       #   run: mkdir output && dotnet publish -c Release --output=./output --no-self-contained
