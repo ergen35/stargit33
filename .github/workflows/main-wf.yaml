@@ -5,9 +5,10 @@ on:
   push:
     branches:
       - "master"
+      - "dev"
 jobs:
   Explore-Actions:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - run: echo "The job was automatically trigerred by a ${{ github.event_name }"
       - run: echo "This job is now running on a ${{ runner.os }} with an ${{ runner.arch }} arch on GitHub"
