@@ -22,14 +22,12 @@ jobs:
         working-directory: src
         run: dotnet list package
       - run: echo "This job is ${{ job.status }}"
-
-      # - name: restore packages
-      #   working-directory: src
-      #   run: dotnet restore ./MinimalAPIS.csproj
-
-      # - name: build app
-      #   working-directory: .
-      #   run: dotnet build
+      - name: build project.
+        working-directory: src
+        run: dotnet build MinimalAPIS.csproj --no-restore -c Release
+      - name: list release directory files.
+        working-directory: src
+        run: cd bin/Release/net6.0 && ls
 
       # - name: publish app
       #   run: mkdir output && dotnet publish -c Release --output=./output --no-self-contained
