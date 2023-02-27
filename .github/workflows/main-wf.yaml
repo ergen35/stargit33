@@ -12,7 +12,7 @@ jobs:
     steps:
       - run: echo "The job was automatically trigerred by a ${{ github.event_name }"
       - run: echo "This job is now running on a ${{ runner.os }} with an ${{ runner.arch }} arch on GitHub"
-      - run: echo "the name of the actual branch is ${{ github.red }}"
+      - run: echo "the name of the actual branch is ${{ github.ref }}"
       - name: Checkout the code repository.
         run: actions/checkout@v3
       - run: echo "The GitHub repository ${{ github.repository }} have been cloned to the runner."
