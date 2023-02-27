@@ -1,16 +1,32 @@
 name: "main workflow"
+run-name: ${{ github.actor }} is testing out GitHub actions 
 
 on:
   push:
     branches:
       - "master"
 jobs:
-  build:
-    runs-on: ubuntu-22.04
+  Explore-Actions:
+    runs-on: ubuntu-latest
     steps:
-      - name: restore packages
-        working-directory: src
-        run: dotnet restore ./MinimalAPIS.csproj
+      - run: echo "The job was automatically trigerred by a ${{ github.event_name }"
+      - run: echo "This job is now running on a ${{ runner.os }} with an ${{ runner.arch }} arch on GitHub"
+      - run: echo "the name of the actual branch is ${{ github.red }}"
+      - name: Checkout the code repository.
+        run: actions/checkout@v3
+      - run: echo "The GitHub repository ${{ github.repository }} have been cloned to the runner."
+      - run: echo "The workflow is now ready to test your code on the runner."
+      - name: List files on the repository
+        run: |
+          ls ${{ github.workspace }}
+      - run: echo "This job is ${{ job.status }}"
+
+
+
+      # - name: restore packages
+      #   working-directory: src
+      #   run: dotnet restore ./MinimalAPIS.csproj
+
         
       # - name: build app
       #   working-directory: .
