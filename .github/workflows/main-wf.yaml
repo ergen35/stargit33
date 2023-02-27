@@ -1,5 +1,5 @@
 name: "main workflow"
-run-name: ${{ github.actor }} is testing out GitHub actions 
+run-name: Build and publish App
 
 on:
   push:
@@ -7,33 +7,23 @@ on:
       - "master"
 jobs:
   Explore-Actions:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
-      - run: echo "The job was automatically trigerred by a ${{ github.event_name }"
-      - run: echo "This job is now running on a ${{ runner.os }} with an ${{ runner.arch }} arch on GitHub"
-      - run: echo "the name of the actual branch is ${{ github.red }}"
       - name: Checkout the code repository.
-        run: actions/checkout@v3
-      - run: echo "The GitHub repository ${{ github.repository }} have been cloned to the runner."
-      - run: echo "The workflow is now ready to test your code on the runner."
-      - name: List files on the repository
-        run: |
-          ls ${{ github.workspace }}
+        uses: actions/checkout@v3
+      - name: list files in src dirrecoty
+        working-directory: src
+        run: ls 
+      - name: restore project deps
+        working-directory: src
+        run: dotnet restore
+      - name: show refs
+        working-directory: src
+        run: dotnet list package
       - run: echo "This job is ${{ job.status }}"
-
-
-
-      # - name: restore packages
-      #   working-directory: src
-      #   run: dotnet restore ./MinimalAPIS.csproj
-
-        
-      # - name: build app
-      #   working-directory: .
-      #   run: dotnet build
-      
-      # - name: publish app
-      #   run: mkdir output && dotnet publish -c Release --output=./output --no-self-contained
-      
-      # - name: show output directory content
-      #   run: cd output && ls
+      - name: build project.
+        working-directory: src
+        run: dotnet build MinimalAPIS.csproj --no-restore -c Release
+      - name: publish app.
+        working-directory: src
+        run: mkdir output && dotnet publish -c Release --output=./output --no-self-contained
