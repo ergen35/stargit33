@@ -10,17 +10,13 @@ jobs:
   Explore-Actions:
     runs-on: ubuntu-22.04
     steps:
-      - run: echo "The job was automatically trigerred by a ${{ github.event_name }}"
-      - run: echo "This job is now running on a ${{ runner.os }} with an ${{ runner.arch }} arch on GitHub"
-      - run: echo "the name of the actual branch is ${{ github.ref }}"
       - name: Checkout the code repository.
         uses: actions/checkout@v3
-      - run: echo "The GitHub repository ${{ github.repository }} have been cloned to the runner."
-      - run: echo "The workflow is now ready to test your code on the runner."
-      - name: List files on the repository
-        run: ls ${{ github.workspace }}
+      - name: list files in src dirrecoty
+        working-directory: src
+        run: ls 
       - name: restore project deps
-        working-directory: src"
+        working-directory: src
         run: dotnet restore
       - name: show refs
         working-directory: src
