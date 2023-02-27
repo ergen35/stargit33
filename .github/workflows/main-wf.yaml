@@ -19,6 +19,9 @@ jobs:
       - run: echo "The workflow is now ready to test your code on the runner."
       - name: List files on the repository
         run: ls ${{ github.workspace }}
+      - name: restore project deps
+        working-directory: ./src"
+        run: dotnet restore
       - name: show refs
         working-directory: ./src
         run: dotnet list package
