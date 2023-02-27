@@ -1,5 +1,5 @@
 name: "main workflow"
-run-name: ${{ github.actor }} is testing out GitHub actions 
+# run-name: ${{ github.actor }} is testing out GitHub actions
 
 on:
   push:
@@ -18,23 +18,19 @@ jobs:
       - run: echo "The GitHub repository ${{ github.repository }} have been cloned to the runner."
       - run: echo "The workflow is now ready to test your code on the runner."
       - name: List files on the repository
-        run: |
-          ls ${{ github.workspace }}
+        run: ls ${{ github.workspace }}
       - run: echo "This job is ${{ job.status }}"
-
-
 
       # - name: restore packages
       #   working-directory: src
       #   run: dotnet restore ./MinimalAPIS.csproj
 
-        
       # - name: build app
       #   working-directory: .
       #   run: dotnet build
-      
+
       # - name: publish app
       #   run: mkdir output && dotnet publish -c Release --output=./output --no-self-contained
-      
+
       # - name: show output directory content
       #   run: cd output && ls
