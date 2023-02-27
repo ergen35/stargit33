@@ -19,6 +19,8 @@ jobs:
       - run: echo "The workflow is now ready to test your code on the runner."
       - name: List files on the repository
         run: ls ${{ github.workspace }}
+      - name: move to repo
+        run: cd "${{ github.workspace }}/src"
       - run: echo "This job is ${{ job.status }}"
 
       # - name: restore packages
