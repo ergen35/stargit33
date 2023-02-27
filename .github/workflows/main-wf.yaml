@@ -21,7 +21,7 @@ jobs:
         run: ls ${{ github.workspace }}
       - name: show refs
         working-directory: ./src
-        run: dotnet reference list
+        run: dotnet list
       - run: echo "This job is ${{ job.status }}"
 
       # - name: restore packages
