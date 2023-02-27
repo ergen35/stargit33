@@ -1,11 +1,10 @@
 name: "main workflow"
-# run-name: ${{ github.actor }} is testing out GitHub actions
+run-name: Build and publish App
 
 on:
   push:
     branches:
       - "master"
-      - "dev"
 jobs:
   Explore-Actions:
     runs-on: ubuntu-22.04
@@ -25,12 +24,6 @@ jobs:
       - name: build project.
         working-directory: src
         run: dotnet build MinimalAPIS.csproj --no-restore -c Release
-      - name: list release directory files.
+      - name: publish app.
         working-directory: src
-        run: cd bin/Release/net6.0 && ls
-
-      # - name: publish app
-      #   run: mkdir output && dotnet publish -c Release --output=./output --no-self-contained
-
-      # - name: show output directory content
-      #   run: cd output && ls
+        run: mkdir output && dotnet publish -c Release --output=./output --no-self-contained
