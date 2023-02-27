@@ -20,10 +20,10 @@ jobs:
       - name: List files on the repository
         run: ls ${{ github.workspace }}
       - name: restore project deps
-        working-directory: ./src"
+        working-directory: src"
         run: dotnet restore
       - name: show refs
-        working-directory: ./src
+        working-directory: src
         run: dotnet list package
       - run: echo "This job is ${{ job.status }}"
 
