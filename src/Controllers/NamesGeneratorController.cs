@@ -11,5 +11,6 @@ namespace MinimalAPIS.Controllers
         {
             return new ObjectResult(new { Name = "Hello, Barnabew" });
         }
+        
     }
 }
