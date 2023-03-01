@@ -7,10 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MinimalAPIS.Models;
 
+
 namespace MinimalAPIS.Controllers
 {
 
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class PersonsController : ControllerBase
     {
@@ -34,7 +35,7 @@ namespace MinimalAPIS.Controllers
         {
             var person = await _context.Persons.FindAsync(id);
 
-            if (person  == null)
+            if (person  is null)
             {
                 return NotFound();              
             }
@@ -48,7 +49,8 @@ namespace MinimalAPIS.Controllers
              _context.Persons.Add(person);
               await _context.SaveChangesAsync();
 
-              return CreatedAtAction(nameof(GetPerson), new {id = person.Id}, person);       
+              return CreatedAtAction(nameof(GetPerson), new {id = person.Id}, person);
+
         }
 
         //PUT : api/Persons/id
@@ -66,10 +68,10 @@ namespace MinimalAPIS.Controllers
             {
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception)
             {
                 
-                if (!PersonExists(id))
+                if (!_context.Persons.Any(e => e.Id == id))
                 {
                     return NotFound();
                 }
@@ -79,7 +81,8 @@ namespace MinimalAPIS.Controllers
                 }
             }
 
-            return NoContent();
+           return CreatedAtAction(nameof(GetPerson), new {id = person.Id}, person);
+            
         }
 
         
@@ -88,7 +91,7 @@ namespace MinimalAPIS.Controllers
         public async Task<IActionResult> DeletePerson(long id)
         {
             var person = await _context.Persons.FindAsync(id);
-            if (person == null)
+            if (person is null)
             {
                 return NotFound();
             }
@@ -97,11 +100,6 @@ namespace MinimalAPIS.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
-        }
-
-        private bool PersonExists(long id)
-        {
-            return _context.Persons.Any(e => e.Id == id);
         }
 
     }
