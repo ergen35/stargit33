@@ -5,8 +5,8 @@
 
 This is a sample aspnet core with net6.0 project
 
-[x] Add model Person
-[x] Add Controller for Person
-[x] Implement these actions GET, POST, PUT, DELETE, GETALL
-[ ] Use Sqlite as the persistance layer
-[ ] Add more models: Person becomes 'Customer', add 'Product', 'ProductInfos', 'ProductCategory' models 
+- [X] Add model Person
+- [X] Add Controller for Person
+- [X] Implement these actions GET, POST, PUT, DELETE, GETALL
+- [ ] Use Sqlite as the persistance layer
+- [ ] Add more models: Person becomes 'Customer', add 'Product', 'ProductInfos', 'ProductCategory' models 
