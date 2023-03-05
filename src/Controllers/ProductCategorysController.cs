@@ -30,9 +30,12 @@ namespace MinimalAPIS.Controllers
 
         //GET : api/v1/ProductCategorys/id
         [HttpGet("{id}")]
-        public async Task<ActionResult<ProductCategory>> GetProductCategory(int id)
+        public async Task<ActionResult<List<ProductCategory>>> GetProductCategory(int id)
         {
-            var ProductCategory = await _context.ProductCategorys.FindAsync(id);
+            var ProductCategory = await _context.ProductCategorys
+                .Where(c => c.Id == id)
+                .Include(c => c.Product)
+                .ToListAsync();
 
             if (ProductCategory is null)
             {
@@ -48,21 +51,21 @@ namespace MinimalAPIS.Controllers
             _context.ProductCategorys.Add(ProductCategory);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetProductCategory), new {id = ProductCategory.ProductCategoryId }, ProductCategory);
+            return CreatedAtAction(nameof(GetProductCategory), new {id = ProductCategory.Id }, ProductCategory);
         }
 
         //PUT : api/v1/ProductCategorys
         [HttpPut("{id}")]
         public async Task<IActionResult> PutProductCategory(int id, ProductCategory ProductCategory)
         {
-            if (id != ProductCategory.ProductCategoryId)
+            if (id != ProductCategory.Id)
             {
                 return BadRequest();
             }
 
             _context.Entry(ProductCategory).State = EntityState.Modified;
 
-            if (_context.ProductCategorys.Any(e => e.ProductCategoryId == id))
+            if (_context.ProductCategorys.Any(e => e.Id == id))
             {
                 await _context.SaveChangesAsync();
             }
@@ -71,7 +74,7 @@ namespace MinimalAPIS.Controllers
                 return NotFound();
             }
 
-            return CreatedAtAction(nameof(GetProductCategory), new {id = ProductCategory.ProductCategoryId}, ProductCategory);
+            return CreatedAtAction(nameof(GetProductCategory), new {id = ProductCategory.Id}, ProductCategory);
         }
 
 

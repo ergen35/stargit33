@@ -32,9 +32,12 @@ namespace MinimalAPIS.Controllers
 
         //GET: api/v1/Customers/id
         [HttpGet("{id}")]
-        public async Task<ActionResult<Customer>> GetCustomer(long id)
+        public async Task<ActionResult<List<Customer>>> GetCustomer(long id)
         {
-            var Customer = await _context.Customers.FindAsync(id);
+            var Customer = await _context.Customers
+                .Where(c => c.Id == id)
+                .Include(c => c.Products)
+                .ToListAsync();
 
             if (Customer  is null)
             {

@@ -7,7 +7,7 @@ namespace MinimalAPIS.Models
 {
     public class ProductCategory
     {
-        public int ProductCategoryId { get; set; }
+        public int Id { get; set; }
 
         [Required]
         public string NameCategory { get; set; }

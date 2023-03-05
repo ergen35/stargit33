@@ -4,10 +4,12 @@ namespace MinimalAPIS.Models
 {
     public class ProductInfo 
     {
-        [Key]
-        public int ProductID { get; set; }
+        
+        public int Id { get; set; }
         public string Description { get; set; }
+        public int ProductId {get; set;}
         public  Product Product {get; set; }
+
     }
 
 }

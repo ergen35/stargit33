@@ -30,7 +30,11 @@ namespace MinimalAPIS.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ProductInfo>> GetProduct(int id)
         {
-            var ProductInfo = await _context.ProductInfos.FindAsync(id);
+            var ProductInfo = await _context.ProductInfos
+                .Where(e => e.Id == id)
+                .Include(e => e.Product)
+                .FirstAsync();
+
             if (ProductInfo is null)
             {
                 return NotFound();
@@ -45,21 +49,21 @@ namespace MinimalAPIS.Controllers
             _context.ProductInfos.Add(ProductInfo);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetProduct), new {id = ProductInfo.ProductID}, ProductInfo); 
+            return CreatedAtAction(nameof(GetProduct), new {id = ProductInfo.Id}, ProductInfo); 
         }
 
 
         [HttpPut("{id}")]
         public async Task<IActionResult> PutProductInfo(int id, ProductInfo ProductInfo)
         {
-            if (id != ProductInfo.ProductID)
+            if (id != ProductInfo.Id)
             {
                 return BadRequest();
             }
 
             _context.Entry(ProductInfo).State = EntityState.Modified;
 
-            if (_context.ProductInfos.Any(e => e.ProductID == id))
+            if (_context.ProductInfos.Any(e => e.Id == id))
             {
                 await _context.SaveChangesAsync();
             }
@@ -68,24 +72,10 @@ namespace MinimalAPIS.Controllers
                 return NotFound();
             }
 
-            return CreatedAtAction(nameof(GetProduct), new {id = ProductInfo.ProductID}, ProductInfo);
+            return CreatedAtAction(nameof(GetProduct), new {id = ProductInfo.Id}, ProductInfo);
         }
 
-        public async Task<IActionResult> DeleteProductInfo(int id)
-        {
-            var ProductInfo = await _context.ProductInfos.FindAsync(id);
-
-            if (ProductInfo is null)
-            {
-                return NotFound();                
-            }
-
-            _context.ProductInfos.Remove(ProductInfo);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-
-        }
+       
         
     }
 }

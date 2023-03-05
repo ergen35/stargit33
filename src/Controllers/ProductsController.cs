@@ -30,9 +30,13 @@ namespace MinimalAPIS.Controllers
 
         //Get : api/v1/Products
         [HttpGet("{id}")]
-        public async Task<ActionResult<Product>> GetProduct(int id)
+        public async Task<ActionResult<List<Product>>> GetProduct(int id)
         {
-           var Product = await _context.Products.FindAsync(id);
+           var Product = await _context.Products    
+                .Where(c => c.CustomerId == id)
+                .Include(c => c.ProductCategory)
+                .Include(c => c.ProductInfo)
+                .ToListAsync();
 
            if (Product is null)
            {
@@ -50,21 +54,21 @@ namespace MinimalAPIS.Controllers
             _context.Products.Add(Product);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetProduct), new {id = Product.ID}, Product);
+            return CreatedAtAction(nameof(GetProduct), new {id = Product.Id}, Product);
         }
         
         //PUT: api/v1/Products
         [HttpPut("{id}")]
         public async Task<IActionResult> PutProduct(int id, Product Product)
         {
-            if (id != Product.ID)
+            if (id != Product.Id)
             {
                 return BadRequest();
             }
 
             _context.Entry(Product).State = EntityState.Modified;
 
-            if (_context.Products.Any(e => e.ID == id))
+            if (_context.Products.Any(e => e.Id == id))
             {
                 await _context.SaveChangesAsync();
             }
@@ -73,7 +77,7 @@ namespace MinimalAPIS.Controllers
                 return NotFound();
             }
 
-            return CreatedAtAction(nameof(GetProduct), new {id = Product.ID}, Product);
+            return CreatedAtAction(nameof(GetProduct), new {id = Product.Id}, Product);
         }
 
         //Delete : api/v1/Products

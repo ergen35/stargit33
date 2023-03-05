@@ -10,7 +10,7 @@ using MinimalAPIS.Data;
 namespace MinimalAPIS.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230303200632_initial_migration")]
+    [Migration("20230304231752_initial_migration")]
     partial class initial_migration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,7 +43,7 @@ namespace MinimalAPIS.Migrations
 
             modelBuilder.Entity("MinimalAPIS.Models.Product", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -63,7 +63,7 @@ namespace MinimalAPIS.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
 
@@ -74,7 +74,7 @@ namespace MinimalAPIS.Migrations
 
             modelBuilder.Entity("MinimalAPIS.Models.ProductCategory", b =>
                 {
-                    b.Property<int>("ProductCategoryId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -82,20 +82,27 @@ namespace MinimalAPIS.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("ProductCategoryId");
+                    b.HasKey("Id");
 
                     b.ToTable("ProductCategory", (string)null);
                 });
 
             modelBuilder.Entity("MinimalAPIS.Models.ProductInfo", b =>
                 {
-                    b.Property<int>("ProductID")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("ProductID");
+                    b.Property<int>("ProductId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId")
+                        .IsUnique();
 
                     b.ToTable("ProductInfo", (string)null);
                 });
@@ -123,7 +130,7 @@ namespace MinimalAPIS.Migrations
                 {
                     b.HasOne("MinimalAPIS.Models.Product", "Product")
                         .WithOne("ProductInfo")
-                        .HasForeignKey("MinimalAPIS.Models.ProductInfo", "ProductID")
+                        .HasForeignKey("MinimalAPIS.Models.ProductInfo", "ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

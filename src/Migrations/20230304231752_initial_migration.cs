@@ -27,20 +27,20 @@ namespace MinimalAPIS.Migrations
                 name: "ProductCategory",
                 columns: table => new
                 {
-                    ProductCategoryId = table.Column<int>(type: "INTEGER", nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     NameCategory = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductCategory", x => x.ProductCategoryId);
+                    table.PrimaryKey("PK_ProductCategory", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Product",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "INTEGER", nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     CustomerId = table.Column<long>(type: "INTEGER", nullable: false),
                     ProductCategoryId = table.Column<int>(type: "INTEGER", nullable: false),
@@ -50,7 +50,7 @@ namespace MinimalAPIS.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Product", x => x.ID);
+                    table.PrimaryKey("PK_Product", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Product_Customer_CustomerId",
                         column: x => x.CustomerId,
@@ -61,7 +61,7 @@ namespace MinimalAPIS.Migrations
                         name: "FK_Product_ProductCategory_ProductCategoryId",
                         column: x => x.ProductCategoryId,
                         principalTable: "ProductCategory",
-                        principalColumn: "ProductCategoryId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -69,17 +69,19 @@ namespace MinimalAPIS.Migrations
                 name: "ProductInfo",
                 columns: table => new
                 {
-                    ProductID = table.Column<int>(type: "INTEGER", nullable: false),
-                    Description = table.Column<string>(type: "TEXT", nullable: true)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Description = table.Column<string>(type: "TEXT", nullable: true),
+                    ProductId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductInfo", x => x.ProductID);
+                    table.PrimaryKey("PK_ProductInfo", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProductInfo_Product_ProductID",
-                        column: x => x.ProductID,
+                        name: "FK_ProductInfo_Product_ProductId",
+                        column: x => x.ProductId,
                         principalTable: "Product",
-                        principalColumn: "ID",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -92,6 +94,12 @@ namespace MinimalAPIS.Migrations
                 name: "IX_Product_ProductCategoryId",
                 table: "Product",
                 column: "ProductCategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductInfo_ProductId",
+                table: "ProductInfo",
+                column: "ProductId",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
